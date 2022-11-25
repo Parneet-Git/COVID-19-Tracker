@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Covid19 Tracker</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container container-fluid" onload="fetch()">
+	<h1 class="text-center mt-5">Covid-19 Live Tracker</h1>
+	<div class="table-responsive">
+	<table id="table" class="table table-bordered table-striped text-center">
+		<tr>
+			<th class="table-dark">
+				Country
+			</th>
+			<th class="table-dark">
+				Total Confirmed
+			</th>
+			<th class="table-dark">
+				Total Deaths
+			</th>
+			<th class="table-dark">
+				Total Recovered
+			</th>
+			<th class="table-dark">
+				New Confirmed
+			</th>
+			<th class="table-dark">
+				New Deaths
+			</th>
+			<th class="table-dark">
+				New Recovered
+			</th>
+		</tr>
+</table>
+</div>
+</div>
+
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$.get("https://api.covid19api.com/summary", function(data){
+
+		var tbval = document.getElementById('table');
+		
+		for(var i=1; i<(data['Countries'].length); i++){
+			var row = tbval.insertRow();
+
+			row.insertCell(0);
+			tbval.rows[i].cells[0].innerHTML = data['Countries'][i-1]['Country'];
+			tbval.rows[i].cells[0].style.background="#7a4a91";
+			tbval.rows[i].cells[0].style.color="#ffffff";
+
+			row.insertCell(1);
+			tbval.rows[i].cells[1].innerHTML = data['Countries'][i-1]['TotalConfirmed'];
+			tbval.rows[i].cells[1].style.background="#4bb7d8";
+
+			row.insertCell(2);
+			tbval.rows[i].cells[2].innerHTML = data['Countries'][i-1]['TotalDeaths'];
+			tbval.rows[i].cells[2].style.background="#f36e23";
+
+			row.insertCell(3);
+			tbval.rows[i].cells[3].innerHTML = data['Countries'][i-1]['TotalRecovered'];
+			tbval.rows[i].cells[3].style.background="#9cc850";
+
+			row.insertCell(4);
+			tbval.rows[i].cells[4].innerHTML = data['Countries'][i-1]['NewConfirmed'];
+			tbval.rows[i].cells[4].style.background="#4bb7d8";
+
+			row.insertCell(5);
+			tbval.rows[i].cells[5].innerHTML = data['Countries'][i-1]['NewDeaths'];
+			tbval.rows[i].cells[5].style.background="#f36e23";
+
+			row.insertCell(6);
+			tbval.rows[i].cells[6].innerHTML = data['Countries'][i-1]['NewRecovered'];
+			tbval.rows[i].cells[6].style.background="#9cc850";
+
+		}
+})
+</script>
+</body>
+</html>
